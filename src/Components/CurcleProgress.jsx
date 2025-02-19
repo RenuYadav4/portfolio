@@ -1,6 +1,6 @@
 import React from "react";
 
-const CircularProgress = ({ value, type }) => {
+const CircularProgress = ({ value, type, color }) => {
   const radius = 20; // Radius of the circle
   const stroke = 6.5; // Stroke width
   const normalizedRadius = radius - stroke / 2;
@@ -25,7 +25,7 @@ const CircularProgress = ({ value, type }) => {
           cx="50"
           cy="50"
           r={normalizedRadius}
-          stroke="#AA98A9"
+          stroke={`${color}`}
           strokeWidth={stroke}
           fill="transparent"
           strokeDasharray={circumference}

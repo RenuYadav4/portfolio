@@ -11,12 +11,13 @@ const icons = [
     { id: 3, Component: TbBrandGmail, link: "https://mail.google.com/mail/u/0/#inbox?compose=CllgCJqZhJnCVZGRRsXQjgQCkRCLPPmKBKFbWxnSdNqcfqXrVfPMrBflPthXPDKBmdKWqkfxRxB", color: "text-black", margin: "mt-3.5" }
 ];
 
-const SocialMedia = () => {
+const SocialMedia = ({ color }) => {
     return (
         <div className='px-58 md:px-2 lg:px-15 lg:py-13'>
             {icons.map((icon, index) => (
                 <motion.div
-                    className={`flex justify-center items-center h-8 w-8 inset-shadow-sm inset-shadow-purple-600/50 rounded-full bg-slate-100 text-xl  ${icon.color} ${icon.margin} shadow-[0_4px_6px_rgba(0,0,0,0.2)] `}
+                    className={`flex justify-center items-center h-8 w-8  rounded-full bg-slate-100 text-xl  ${icon.color} ${icon.margin} shadow-[0_4px_6px_rgba(0,0,0,0.2)] `}
+                    style={{ boxShadow: `inset 0 2px 3px ${color}` }}
                     key={icon.id}
                     initial={{ y: "-100vh", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}

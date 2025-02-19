@@ -3,9 +3,9 @@ import React from 'react'
 const StatusBar = () => {
   return (
     <>
-    <div>
-      About
-    </div>
+      <div>
+        About
+      </div>
     </>
   )
 }

@@ -3,7 +3,7 @@ import { RiJavascriptFill, RiTailwindCssFill } from "react-icons/ri";
 import { AiOutlineJava } from "react-icons/ai";
 import { VscGithub } from "react-icons/vsc";
 
-const SkillsIcons = () => {
+const SkillsIcons = ({color}) => {
   const skills = [
     { icon: <FaHtml5 />, color: "text-amber-400", name: "HTML" },
     { icon: <FaCss3 />, color: "text-blue-600", name: "CSS" },
@@ -21,7 +21,8 @@ const SkillsIcons = () => {
             
           {/* Icon */}
           <div
-            className={`h-11 ml-2 w-11 ${skill.color} flex justify-center items-center bg-[#fff] rounded-full shadow-[0_4px_6px_rgba(0,0,0,0.2)] cursor-pointer inset-shadow-sm inset-shadow-purple-400`}
+            className={`h-11 ml-2 w-11 ${skill.color} flex justify-center items-center bg-[#fff] rounded-full shadow-[0_4px_6px_rgba(0,0,0,0.2)] cursor-pointer`}
+            style={{ boxShadow: `inset 0 2px 3px ${color}` }}
           >
             {skill.icon}
           </div>
