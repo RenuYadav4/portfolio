@@ -2,7 +2,7 @@ import React from 'react'
 
 const Experience = () => {
     return (
-        <div className='h-80 bg-[#fff] rounded-sm shadow-2xl flex flex-col p-6 text-sm font-serif mt-80'>
+        <div className='h-[80vh] bg-[#fff] rounded-sm shadow-2xl flex flex-col p-6 text-sm font-serif mt-80'>
             <strong>Frontend Developer Intern</strong>
             <a className='text-blue-400 hover:underline' href="https://softairtechnology.com/">SoftAir Technology</a>
             <div>

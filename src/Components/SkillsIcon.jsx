@@ -21,8 +21,8 @@ const SkillsIcons = ({color}) => {
             
           {/* Icon */}
           <div
-            className={`h-11 ml-2 w-11 ${skill.color} flex justify-center items-center bg-[#fff] rounded-full shadow-[0_4px_6px_rgba(0,0,0,0.2)] cursor-pointer`}
-            style={{ boxShadow: `inset 0 2px 3px ${color}` }}
+            className={`h-11 ml-2 w-11 ${skill.color} flex justify-center items-center bg-[#fff] rounded-full cursor-pointer`}
+            style={{ boxShadow: `0 4px 6px rgba(0,0,0,0.2), inset 0 2px 3px ${color}` }}
           >
             {skill.icon}
           </div>

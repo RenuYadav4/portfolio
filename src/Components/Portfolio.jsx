@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CircularProgress from './CurcleProgress';
 import { IoSettingsOutline } from "react-icons/io5";
 import SkillsIcons from './SkillsIcon';
 import SocialMedia from './SocialMedia';
 import StatusBar from './StatusBar';
 import Projects from './Projects';
-import { CgProfile } from "react-icons/cg";
-import { GrProjects } from "react-icons/gr";
-import { GiSkills } from "react-icons/gi";
-import { MdOutlineWorkHistory } from "react-icons/md";
 import About from './About';
 import Experience from './Experience';
+import { motion } from "framer-motion";
+import Skilltree from './Skilltree';
+import RightStatus from './RightStatus';
+
 
 
 
@@ -18,7 +18,18 @@ import Experience from './Experience';
 const Portfolio = () => {
     const [showSeason, setShowSeason] = useState(false);
     const [bgColor, setBgColor] = useState("#DBBFDB");
+    const [lightColor, setLightColor] = useState("#DAB1DA")
     const [status, setStatus] = useState("About");
+    const [rightBg, setRightBg] = useState("bg-white");
+    const [rightBg1, setRightBg1] = useState("bg-white");
+    const [rightBg2, setRightBg2] = useState("bg-white");
+    const [rightBg3, setRightBg3] = useState("bg-white");
+
+    
+    const aboutRef = useRef(null);
+    const projectRef = useRef(null);
+    const skillsRef = useRef(null);
+    const experienceRef = useRef(null);
 
     // working on status bar
     useEffect(() => {
@@ -26,9 +37,63 @@ const Portfolio = () => {
         const handleScroll = () => {
             if (!scrollContainer) return;
             const scrollY = scrollContainer.scrollTop;
+            const aboutHeight = window.innerHeight * 0.6;
+            const projectHeight = window.innerHeight * 1;
+            const skillsHeight = window.innerHeight * 0.8;
+            const experienceHeight = window.innerHeight * 0.8;
 
+            if (scrollY < aboutHeight) {
+                setStatus("About");
+                setRightBg("#E2E8F0");
+                setRightBg1("bg-white");
+                setRightBg2("bg-white");
+                setRightBg3("bg-white");
+            }
+            else if (scrollY >= aboutHeight && scrollY < aboutHeight + projectHeight) {
+                setStatus("Project");
+                setRightBg1("#E2E8F0");
+                setRightBg("bg-white");
+                setRightBg2("bg-white");
+                setRightBg3("bg-white");
+            }
+            else if (scrollY >= aboutHeight + projectHeight && scrollY < aboutHeight + projectHeight + skillsHeight) {
+                setStatus("Skills");
+                setRightBg2("#E2E8F0");
+                setRightBg("bg-white");
+                setRightBg1("bg-white");
+                setRightBg3("bg-white");
+
+            }
+            else {
+                setStatus("Experience");
+                setRightBg3("#E2E8F0");
+                setRightBg2("bg-white");
+                setRightBg1("bg-white");
+                setRightBg("bg-white");
+
+            }
         }
+        const handleResize = () => {
+            handleScroll(); // Recalculate on resize
+        };
+
+        if (scrollContainer) {
+            scrollContainer.addEventListener("scroll", handleScroll);
+        }
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            if (scrollContainer) {
+                scrollContainer.removeEventListener("scroll", handleScroll);
+            }
+            window.removeEventListener("resize", handleResize);
+        };
     }, [])
+
+    const handleClick = (season) => {
+        setBgColor(season.color);
+        setLightColor(season.light);
+    }
     return (
 
         <main className='flex flex-col justify-center items-center md:bg-[#DBBFDB] lg:bg-[#DBBFDB] h-screen w-screen' style={{ background: bgColor }}>
@@ -48,7 +113,7 @@ const Portfolio = () => {
                             src="https://img.freepik.com/free-vector/cartoon-businesswoman-working-with-laptop-gesture-pose-clip-art_40876-3410.jpg" alt="profile" />
 
                         {/* icons - Social media */}
-                        <SocialMedia color={bgColor} />
+                        <SocialMedia color={lightColor} />
                     </div>
 
                     {/* Name and about */}
@@ -65,7 +130,7 @@ const Portfolio = () => {
                                 <h3>JMS Institute,</h3>
                                 <h4>Ghaziabad</h4>
                             </div>
-                            <CircularProgress value={7.05} type="sgpa" color={bgColor} />
+                            <CircularProgress value={7.05} type="sgpa" color={lightColor} />
                         </div>
                         <div className=' px-3 mt-5 text-xs flex justify-between items-center bg-slate-300/50 font-serif inset-shadow-sm inset-shadow-purple-300 rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
                             <div >
@@ -73,7 +138,7 @@ const Portfolio = () => {
                                 <h3>GGIC,</h3>
                                 <h4>Ghaziabad</h4>
                             </div>
-                            <CircularProgress value={70} type="percentage" color={bgColor}/>
+                            <CircularProgress value={70} type="percentage" color={lightColor} />
                         </div>
                     </div>
                 </div>
@@ -81,31 +146,26 @@ const Portfolio = () => {
                 {/* centre */}
                 <div
                     id='centre'
-                    className='hidden md:flex flex-col items-center mx-2 md:w-[60%] md:h-[91%] md:bg-slate-200 shadow-md overflow-y-auto overflow-x-auto p-5'>
+                    className='hidden md:flex flex-col items-center mx-2 md:w-[70%] lg:w-[55%] md:h-[91%] md:bg-slate-200 shadow-md overflow-y-auto overflow-x-auto p-5'>
 
                     {/* Nav Status Bar */}
-                    <div className='fixed z-2 bg-[#fff] h-10 w-3/9 rounded-3xl flex  items-center justify-center inset-shadow-sm inset-shadow-purple-300
-                         text-green-400 font-bold font-serif shadow-[0_4px_6px_rgba(0,0,0,0.2)] hover:bg-green-300 hover:text-[#fff] cursor-pointer flex-shrink-0'>
-                        <StatusBar />
-                    </div>
+                    <StatusBar status={status} color={lightColor}/>
 
                     {/*logo About*/}
-                    <About />
+                        <About ref={aboutRef}/>
 
 
                     {/* Skills */}
-                    <SkillsIcons color={bgColor}/>
-                    <div>
-                        <Projects />
-                    </div>
+                    <SkillsIcons color={lightColor}/>
+
+                    {/* projects */}
+                    <Projects ref={projectRef}/>
 
                     {/* Skill set */}
-                    <div className='mt-80 h-100'>
-                        <img src="src\assets\skillTree.svg" alt="" />
-                    </div>
+                    <Skilltree ref={skillsRef}/>
 
                     {/* Experience */}
-                    <Experience />
+                    <Experience ref={experienceRef}/>
 
                     {/* footer */}
                     <div className='mt-80 font-serif text-xs font-bold text-gray-600'>
@@ -115,26 +175,7 @@ const Portfolio = () => {
                 </div>
 
                 {/* Right */}
-                <div className='hidden md:block mx-5 md:w-[15%] md:h-[91%] md:bg-slate-200 shadow-md  '>
-                    <div className='flex h-full flex-col items-center justify-center gap-6'>
-                        <div className='flex flex-col justify-center items-center text-gray-400 text-4xl inset-shadow-sm inset-shadow-gray-500 h-[13%] lg:h-[20%] w-[80%]'>
-                            <CgProfile />
-                            <h4 className='mt-2 text-xs font-serif font-semibold'>About</h4>
-                        </div>
-                        <div className='flex flex-col justify-center items-center text-gray-400 text-4xl inset-shadow-sm inset-shadow-gray-500 h-[13%] lg:h-[20%] w-[80%]'>
-                            <GrProjects />
-                            <h4 className='mt-2 text-xs font-serif font-semibold'>Projects</h4>
-                        </div>
-                        <div className=' flex flex-col justify-center items-center text-gray-400 text-4xl inset-shadow-sm inset-shadow-gray-500 h-[13%] lg:h-[20%] w-[80%]'>
-                            < GiSkills />
-                            <h4 className='mt-2 text-xs font-serif font-semibold'>Skills</h4>
-                        </div>
-                        <div className='mt-2 flex flex-col justify-center items-center text-gray-400 text-4xl inset-shadow-sm inset-shadow-gray-500 h-[13%] lg:h-[20%] w-[80%]'>
-                            <MdOutlineWorkHistory />
-                            <h4 className='text-xs font-serif font-semibold'>Experience</h4>
-                        </div>
-                    </div>
-                </div>
+                <RightStatus rightBg={rightBg} rightBg1={rightBg1} rightBg2={rightBg2} rightBg3={rightBg3}/>
             </div>
 
             {/* modal season */}
@@ -152,14 +193,15 @@ const Portfolio = () => {
                     <div className='fixed top-15 right-[42px]  bg-transparent  z-50 overflow-hidden'>
                         <ul className='space-y-2'>
                             {[
-                                { name: "Spring", color: "#F94994" },
-                                { name: "Winter", color: "#5C4FC0" },
-                                { name: "Summer", color: "#97EC79" },
-                                { name: "Autumn", color: "#FFC266" },
+                                { name: "Spring", color: "#F94994", light: "#FCBEAC" },
+                                { name: "Winter", color: "#5C4FC0", light: "#90D5FF" },
+                                { name: "Summer", color: "#97EC79", light: "#88E788" },
+                                { name: "Autumn", color: "#FFC266", light: "#FFEE8C" },
                             ].map((season, index) => (
                                 <li key={season.name}
                                     className='p-2 rounded-md cursor-pointer flex items-center gap-2'
-                                    onClick={() => { setBgColor(season.color) }}
+                                    // onClick={() => { setBgColor(season.color) }}
+                                    onClick={() => handleClick(season)}
                                 >
                                     {season.name}
                                     <span className="w-6 h-6 rounded-full bg-white border border-gray-400 flex items-center justify-center">

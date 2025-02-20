@@ -16,8 +16,8 @@ const SocialMedia = ({ color }) => {
         <div className='px-58 md:px-2 lg:px-15 lg:py-13'>
             {icons.map((icon, index) => (
                 <motion.div
-                    className={`flex justify-center items-center h-8 w-8  rounded-full bg-slate-100 text-xl  ${icon.color} ${icon.margin} shadow-[0_4px_6px_rgba(0,0,0,0.2)] `}
-                    style={{ boxShadow: `inset 0 2px 3px ${color}` }}
+                    className={`flex justify-center items-center h-8 w-8  rounded-full bg-slate-100 text-xl  ${icon.color} ${icon.margin} shadow-[0_4px_6px_rgba(0,0,0,0.2)]`}
+                    style={{ boxShadow: `0 4px 6px rgba(0,0,0,0.2), inset 0 2px 3px ${color}` }}
                     key={icon.id}
                     initial={{ y: "-100vh", opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}

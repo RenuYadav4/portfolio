@@ -2,7 +2,7 @@ import React from 'react'
 
 const About = () => {
     return (
-        <div className='mt-30 h-80 lg:mt-40 ml-[-10px]  lg:ml-[5px]'>
+        <div className='mt-40 h-[60vh] lg:mt-50 ml-[-10px]  lg:ml-[5px]'>
             <div className='flex'>
                 <div className='ml-3 h-12.5 w-12.5 rounded-full shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
                     <img src="src\assets\MyLogo.svg" alt="" />
