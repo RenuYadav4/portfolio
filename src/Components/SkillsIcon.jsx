@@ -15,13 +15,13 @@ const SkillsIcons = ({color}) => {
   ];
 
   return (
-    <div className="mt-14 flex text-2xl">
+    <div className="mt-14 flex text-2xl justify-center">
       {skills.map((skill, index) => (
         <div key={index} className="relative group">
             
           {/* Icon */}
           <div
-            className={`h-11 ml-2 w-11 ${skill.color} flex justify-center items-center bg-[#fff] rounded-full cursor-pointer`}
+            className={`h-11 ml-4 md:ml-2 md:w-11 ${skill.color} flex justify-center items-center bg-[#fff] rounded-full cursor-pointer`}
             style={{ boxShadow: `0 4px 6px rgba(0,0,0,0.2), inset 0 2px 3px ${color}` }}
           >
             {skill.icon}

@@ -2,8 +2,11 @@ import React from 'react'
 import { motion, useMotionValue, useTransform } from "framer-motion";
 
 const Animation = () => {
-    // const list = { hidden: { opacity: 0 } }
-    // const item = { hidden: { x: -10, opacity: 0 } }  
+    const list = { hidden: { opacity: 0 }, visible: { 
+        opacity: 1,            // When visible, the list appears
+        transition: { staggerChildren: 0.3 } // Adds delay between each child animation
+      } }
+    const item = { hidden: { x: -10, opacity: 0 }, visible: { x: 0, opacity: 1 } }  
     const x = useMotionValue(0)
     const opacity = useTransform(x, [-100, 0, 100], [0, 1, 0])
     const background = useTransform(
@@ -17,7 +20,8 @@ const Animation = () => {
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 1.1 }}
                 drag="x"
-                animate={{ x: 100, y: 100 }}
+                initial={{ x: 0, opacity: 0 }}
+                animate={{ x:100,y:100, opacity:1 }}
                 dragConstraints={{ left: -50, right: 100 }}
                 // initial={{opacity: 0}}
                 // whileInView={{opacity:1}}
@@ -27,11 +31,11 @@ const Animation = () => {
             </motion.div>
 
             {/* not visible */}
-            {/* <motion.ul animate="hidden" variants={item}>
+            <motion.ul initial="hidden" animate="visible" variants={list}>
                 <motion.li variants={item} />
                 <motion.li variants={item} />
                 <motion.li variants={item} />
-            </motion.ul> */}
+            </motion.ul>
 
             <motion.div
                 drag="x" style={{ x, opacity,background }}

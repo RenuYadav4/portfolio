@@ -1,35 +1,35 @@
-import { useState } from "react";
- // Your main page component
+// import "./App.css";
+import Layout2 from "./Components/Layout2";
 import Portfolio from "./Components/Portfolio";
-import Demo from "./Components/demo";
-// import FallingFlowers from "./Components/FallingFlowers";
+import BouncyButton from "./Framermotion/BouncyButton";
+import Button from "./Framermotion/Button";
+import FadeInButton from "./Framermotion/EntranceExit";
+import LoadingEffect from "./Framermotion/LoadingEffect";
+import Ripple from "./Framermotion/RippleEffect";
+import GlowButton from "./Framermotion/SpecialEffect";
 
-export default function App() {
-  // const [theme, setTheme] = useState("spring"); // Change theme dynamically
-
+function App() {
   return (
-    // <div className="relative w-screen h-screen overflow-hidden">
-    //   {/* Theme Selector */}
-    //   <div className="absolute top-5 left-5 z-50">
-    //     <select
-    //       className="p-2 bg-white border rounded"
-    //       onChange={(e) => setTheme(e.target.value)}
-    //     >
-    //       <option value="spring">Spring</option>
-    //       <option value="autumn">Autumn</option>
-    //       <option value="winter">Winter</option>
-    //     </select>
-    //   </div>
-
-    //   {/* Falling Flowers Effect */}
-    //   <FallingFlowers theme={theme} />
-
-    //   {/* Portfolio Component */}
-    //   <Portfolio />
-    // </div>
     <>
-     <Portfolio/>
-     {/* <Demo/> */}
+     <div className="block md:hidden">
+        <Layout2 /> {/*Mobile Layout (Below 768px)*/}
+      </div>
+      <div className="hidden md:block">
+        <Portfolio /> {/* Desktop Layout (Above 1024px) */}
+      </div>
     </>
+  // <>
+  // {/* <Button/> */}
+  // {/* <Ripple/> */}
+  // {/* <LoadingEffect/> */}
+
+  // {/* <FadeInButton/> */}
+  // {/* <GlowButton/> */}
+  // {/* <BouncyButton/> */}
+  // </>
+    
+
   );
 }
+
+export default App;

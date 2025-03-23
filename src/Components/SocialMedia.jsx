@@ -13,7 +13,7 @@ const icons = [
 
 const SocialMedia = ({ color }) => {
     return (
-        <div className='px-58 md:px-2 lg:px-15 lg:py-13'>
+        <div className='px-40 md:px-2 lg:px-15 lg:py-13'>
             {icons.map((icon, index) => (
                 <motion.div
                     className={`flex justify-center items-center h-8 w-8  rounded-full bg-slate-100 text-xl  ${icon.color} ${icon.margin} shadow-[0_4px_6px_rgba(0,0,0,0.2)]`}

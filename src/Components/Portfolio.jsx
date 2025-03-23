@@ -18,6 +18,8 @@ import RightStatus from './RightStatus';
 const Portfolio = () => {
     const [showSeason, setShowSeason] = useState(false);
     const [bgColor, setBgColor] = useState("#DBBFDB");
+    const [leaves, setLeaves] = useState([]);
+    const [season, setSeason] = useState("Spring");
     const [lightColor, setLightColor] = useState("#DAB1DA")
     const [status, setStatus] = useState("About");
     const [rightBg, setRightBg] = useState("bg-white");
@@ -25,11 +27,70 @@ const Portfolio = () => {
     const [rightBg2, setRightBg2] = useState("bg-white");
     const [rightBg3, setRightBg3] = useState("bg-white");
 
-    
+
     const aboutRef = useRef(null);
     const projectRef = useRef(null);
     const skillsRef = useRef(null);
     const experienceRef = useRef(null);
+
+    //  current season
+    function getCurrentSeason() {
+        const month = new Date().getMonth() + 1;
+        if (month >= 3 && month <= 5) {
+            return "Spring"; // March - May
+        } else if (month >= 6 && month <= 8) {
+            return "Summer"; // June - August
+        } else if (month >= 9 && month <= 11) {
+            return "Autumn"; // September - November
+        } else {
+            return "Winter"; // December - February
+        }
+    }
+    useEffect(() => {
+        const currentSeason = getCurrentSeason();
+        setSeason(currentSeason);
+        if (currentSeason === "Spring") {
+            setBgColor("#F94994");
+            setLightColor("#DBBFDB")
+        } else if (currentSeason === "Summer") {
+            setBgColor("#97EC79");
+            setLightColor("#88E788")
+        } else if (currentSeason === "Autumn") {
+            setBgColor("#FFC266");
+            setLightColor("#FFEE8C")
+        } else {
+            setBgColor("#5C4FC0");
+            setLightColor("#90D5FF")
+
+        }
+    }, []);
+
+    const seasonLeaves = {
+        Autumn: "🍂",
+        Summer: "🌿",
+        Spring: "🌸",
+        Winter: "❄️",
+    };
+
+    useEffect(() => {
+        const generateLeaves = () => {
+            let leafArray = [];
+
+            for (let i = 0; i < 15; i++) {
+                leafArray.push({
+                    id: i,
+                    // Math.random() generates a random number between 0 and 1 (e.g., 0.1234, 0.9876).
+                    // Multiplying by 100 gives a number between 0 and 100, which is useful when working 
+                    // with percentages in CSS
+                    left: Math.random() * 100, // Random left position
+                    delay: Math.random() * 5, // Random delay
+                    finalY: 10 + Math.random() * 30
+                });
+            }
+            setLeaves(leafArray);
+        };
+        generateLeaves();
+    }, []);
 
     // working on status bar
     useEffect(() => {
@@ -93,131 +154,158 @@ const Portfolio = () => {
     const handleClick = (season) => {
         setBgColor(season.color);
         setLightColor(season.light);
+        setSeason(season.name);
     }
     return (
-
-        <main className='flex flex-col justify-center items-center md:bg-[#DBBFDB] lg:bg-[#DBBFDB] h-screen w-screen' style={{ background: bgColor }}>
-            <div className=' text-2xl bg-[#fff] rounded-full h-8 w-8 flex justify-center items-center  mt-[-20px] md:ml-190 mb-2 lg:ml-410 shadow-[0_6px_6px_rgba(0,0,0,0.2)] '>
-                <button className='cursor-pointer'
-                    onClick={() => { setShowSeason(!showSeason) }}>
-                    <IoSettingsOutline />
-                </button>
+        <>
+            <div className="fixed top-0 left-0 w-screen h-screen pointer-events-none overflow-hidden z-50 ">
+                {leaves.map((leaf) => (
+                    <motion.div
+                        key={leaf.id}
+                        className={`absolute text-sm`}
+                        initial={{ y: "-10vh", rotate: 0, opacity: 1 }}
+                        animate={{ y: `${leaf.finalY}vh`, rotate: Math.random() * 360, opacity: 1 }}
+                        transition={{
+                            duration: 2,
+                            delay: leaf.delay,
+                            repeat: Infinity,
+                            ease: "linear",
+                        }}
+                        style={{ left: `${leaf.left}vw ` }}
+                    >
+                        {seasonLeaves[season]}
+                    </motion.div>
+                ))}
             </div>
-            <div className='md:px-5 md:flex md:justify-center md:items-center h-[90vh] w-[95vw] md:bg-slate-100 md:rounded-sm md:shadow-md shadow-[#6e6e6e]'>
-
-                {/* left */}
-                <div className='h-[10%] w-[10%] mx-5 md:w-[25%] md:h-[91%]  md:bg-slate-200 md:shadow-md'>
-                    <div className='flex p-7'>
-                        <img
-                            className='shadow-[0_4px_6px_rgba(0,0,0,0.2)] lg:ml-9 rounded-sm md:h-25 md:w-27 lg:h-50 lg:w-52 '
-                            src="https://img.freepik.com/free-vector/cartoon-businesswoman-working-with-laptop-gesture-pose-clip-art_40876-3410.jpg" alt="profile" />
-
-                        {/* icons - Social media */}
-                        <SocialMedia color={lightColor} />
-                    </div>
-
-                    {/* Name and about */}
-                    <h2 className='font-serif text-gray-700 text-2xl font-bold text-gray-750 mt-[-110px] md:mt-[-21px] ml-4 md:ml-17 lg:ml-41 md:text-xl'>Renu</h2>
-                    <p className='text-sm hidden md:block text-wrap font-serif ml-3 mt-5 text-slate-800'>
-                        Hey there! I am Renu, developing intuitive websites to master my web development skills.
-                    </p>
-
-                    {/* education */}
-                    <div className='px-3'>
-                        <div className='px-3 mt-5 text-xs flex justify-between items-center bg-slate-300/50 font-serif inset-shadow-sm inset-shadow-purple-300 rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
-                            <div>
-                                <h2 className='font-bold'>B.Tech</h2>
-                                <h3>JMS Institute,</h3>
-                                <h4>Ghaziabad</h4>
-                            </div>
-                            <CircularProgress value={7.05} type="sgpa" color={lightColor} />
-                        </div>
-                        <div className=' px-3 mt-5 text-xs flex justify-between items-center bg-slate-300/50 font-serif inset-shadow-sm inset-shadow-purple-300 rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
-                            <div >
-                                <h2 className='font-semibold'>Higher Secondary Education</h2>
-                                <h3>GGIC,</h3>
-                                <h4>Ghaziabad</h4>
-                            </div>
-                            <CircularProgress value={70} type="percentage" color={lightColor} />
-                        </div>
-                    </div>
+            <main className='flex flex-col justify-center items-center md:bg-[#DBBFDB] lg:bg-[#DBBFDB] h-screen w-screen' style={{ background: bgColor }}>
+                <div className=' text-2xl bg-[#fff] rounded-full h-8 w-8 flex justify-center items-center  mt-[-20px] md:ml-190 mb-2 lg:ml-410 shadow-[0_6px_6px_rgba(0,0,0,0.2)] '>
+                    <button className='cursor-pointer'
+                        onClick={() => { setShowSeason(!showSeason) }}>
+                        <IoSettingsOutline />
+                    </button>
                 </div>
+                <div className='md:px-5 md:flex md:justify-center md:items-center h-[90vh] w-[95vw] md:bg-slate-100 md:rounded-sm md:shadow-md shadow-[#6e6e6e]'>
 
-                {/* centre */}
-                <div
-                    id='centre'
-                    className='hidden md:flex flex-col items-center mx-2 md:w-[70%] lg:w-[55%] md:h-[91%] md:bg-slate-200 shadow-md overflow-y-auto overflow-x-auto p-5'>
+                    {/* left */}
+                    <div className='h-[10%] w-[10%] mx-5 md:w-[25%] md:h-[91%]  md:bg-slate-200 md:shadow-md'>
+                        <div className='flex p-7'>
+                            <img
+                                className='shadow-[0_4px_6px_rgba(0,0,0,0.2)] lg:ml-9 rounded-sm md:h-25 md:w-27 lg:h-50 lg:w-52 '
+                                src="https://img.freepik.com/free-vector/cartoon-businesswoman-working-with-laptop-gesture-pose-clip-art_40876-3410.jpg" alt="profile" />
 
-                    {/* Nav Status Bar */}
-                    <StatusBar status={status} color={lightColor}/>
+                            {/* icons - Social media */}
+                            <SocialMedia color={lightColor} />
+                        </div>
 
-                    {/*logo About*/}
-                        <About ref={aboutRef}/>
+                        {/* Name and about */}
+                        <h2 className='font-serif text-gray-700 text-2xl font-bold text-gray-750 mt-[-110px] md:mt-[-21px] ml-4 md:ml-17 lg:ml-41 md:text-xl'>Renu</h2>
+                        <p className='text-sm hidden md:block text-wrap font-serif ml-3 mt-5 text-slate-800'>
+                            Hey there! I am Renu, developing intuitive websites to master my web development skills.
+                        </p>
 
-
-                    {/* Skills */}
-                    <SkillsIcons color={lightColor}/>
-
-                    {/* projects */}
-                    <Projects ref={projectRef}/>
-
-                    {/* Skill set */}
-                    <Skilltree ref={skillsRef}/>
-
-                    {/* Experience */}
-                    <Experience ref={experienceRef}/>
-
-                    {/* footer */}
-                    <div className='mt-80 font-serif text-xs font-bold text-gray-600'>
-                        <p>Thank's for reaching the bottom of this page. If you like what you see, let's connect and build something together.</p>
-                        <a className='text-blue-400 hover:underline' href="public\RESUMEYADAV (1).pdf">resume</a>
+                        {/* education */}
+                        <div className='px-3'>
+                            <div className='px-3 mt-5 text-xs flex justify-between items-center bg-slate-300/50 font-serif inset-shadow-sm inset-shadow-purple-300 rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
+                                <div>
+                                    <h2 className='font-bold'>B.Tech</h2>
+                                    <h3>JMS Institute,</h3>
+                                    <h4>Ghaziabad</h4>
+                                </div>
+                                <CircularProgress value={7.05} type="sgpa" color={lightColor} />
+                            </div>
+                            <div className=' px-3 mt-5 text-xs flex justify-between items-center bg-slate-300/50 font-serif inset-shadow-sm inset-shadow-purple-300 rounded-2xl shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
+                                <div >
+                                    <h2 className='font-semibold'>Higher Secondary Education</h2>
+                                    <h3>GGIC,</h3>
+                                    <h4>Ghaziabad</h4>
+                                </div>
+                                <CircularProgress value={70} type="percentage" color={lightColor} />
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                {/* Right */}
-                <RightStatus rightBg={rightBg} rightBg1={rightBg1} rightBg2={rightBg2} rightBg3={rightBg3}/>
-            </div>
-
-            {/* modal season */}
-            {showSeason &&
-                (
+                    {/* centre */}
                     <div
-                        onClick={() => { setShowSeason(!showSeason) }}
-                        className='fixed inset-0 min-h-screen bg-opacity-1 backdrop-blur-[1px] z-40 '>
+                        id='centre'
+                        className='hidden md:flex flex-col items-center mx-2 md:w-[70%] lg:w-[55%] md:h-[91%] md:bg-slate-200 shadow-md overflow-y-auto overflow-x-auto p-5'>
 
+                        {/* Nav Status Bar */}
+                        <StatusBar status={status} color={lightColor} />
+
+                        {/*logo About*/}
+                        <About ref={aboutRef} />
+
+
+                        {/* Skills */}
+                        <SkillsIcons color={lightColor} />
+
+                        {/* projects */}
+                        <Projects ref={projectRef} />
+
+                        {/* Skill set */}
+                        <Skilltree ref={skillsRef} />
+
+                        {/* Experience */}
+                        <Experience ref={experienceRef} />
+
+                        {/* footer */}
+                        <motion.div
+                            className='mt-80 font-serif text-xs font-bold text-gray-600'
+                            initial={{ y: 200, opacity: 0 }}
+                            whileInView={{ y: -100, opacity: 1 }}
+                            transition={{ type: "tween", duration: 1, ease: "easeOut" }}
+                        >
+
+                            <p>Thank's for reaching the bottom of this page. If you like what you see, let's connect and build something together.</p>
+                            <a className='text-blue-400 hover:underline' href="public\RESUMEYADAV (1).pdf">resume</a>
+                        </motion.div>
                     </div>
-                )
-            }
-            {showSeason &&
-                (
-                    <div className='fixed top-15 right-[42px]  bg-transparent  z-50 overflow-hidden'>
-                        <ul className='space-y-2'>
-                            {[
-                                { name: "Spring", color: "#F94994", light: "#FCBEAC" },
-                                { name: "Winter", color: "#5C4FC0", light: "#90D5FF" },
-                                { name: "Summer", color: "#97EC79", light: "#88E788" },
-                                { name: "Autumn", color: "#FFC266", light: "#FFEE8C" },
-                            ].map((season, index) => (
-                                <li key={season.name}
-                                    className='p-2 rounded-md cursor-pointer flex items-center gap-2'
-                                    // onClick={() => { setBgColor(season.color) }}
-                                    onClick={() => handleClick(season)}
-                                >
-                                    {season.name}
-                                    <span className="w-6 h-6 rounded-full bg-white border border-gray-400 flex items-center justify-center">
-                                        <span
-                                            className="w-4 h-4 rounded-full "
-                                            style={{ backgroundColor: season.color }}
-                                        ></span>
-                                    </span>
-                                </li>
-                            ))
-                            }
-                        </ul>
-                    </div>
-                )
-            }
-        </main>
+
+                    {/* Right */}
+                    <RightStatus rightBg={rightBg} rightBg1={rightBg1} rightBg2={rightBg2} rightBg3={rightBg3} />
+                </div>
+
+                {/* modal season */}
+                {showSeason &&
+                    (
+                        <div
+                            onClick={() => { setShowSeason(!showSeason) }}
+                            className='fixed inset-0 min-h-screen bg-opacity-1 backdrop-blur-[1px] z-40 '>
+
+                        </div>
+                    )
+                }
+                {showSeason &&
+                    (
+                        <div className='fixed top-15 right-[42px]  bg-transparent  z-50 overflow-hidden'>
+                            <ul className='space-y-2'>
+                                {[
+                                    { name: "Spring", color: "#DBBFDB", light: "#DBBFDB" },
+                                    { name: "Winter", color: "#5C4FC0", light: "#90D5FF" },
+                                    { name: "Summer", color: "#97EC79", light: "#88E788" },
+                                    { name: "Autumn", color: "#FFC266", light: "#FFEE8C" },
+                                ].map((season, index) => (
+                                    <li key={season.name}
+                                        className='p-2 rounded-md cursor-pointer flex items-center gap-2'
+                                        // onClick={() => { setBgColor(season.color) }}
+                                        onClick={() => handleClick(season)}
+                                    >
+                                        {season.name}
+                                        <span className="w-6 h-6 rounded-full bg-white border border-gray-400 flex items-center justify-center">
+                                            <span
+                                                className="w-4 h-4 rounded-full "
+                                                style={{ backgroundColor: season.color }}
+                                            ></span>
+                                        </span>
+                                    </li>
+                                ))
+                                }
+                            </ul>
+                        </div>
+                    )
+                }
+            </main>
+        </>
     )
 }
 

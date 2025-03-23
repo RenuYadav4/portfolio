@@ -36,7 +36,7 @@ const Projects = () => {
 
   return (
     
-    <div className="mt-[170px] h-[100vh] flex flex-col items-center flex-wrap">
+    <div className="mt-[170px] md:h-[100vh] flex flex-col items-center flex-wrap">
       {projects.map((project) => (
         <motion.div
           key={project.id}
