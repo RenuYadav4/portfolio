@@ -110,7 +110,7 @@ const Portfolio = () => {
                 setRightBg2("bg-white");
                 setRightBg3("bg-white");
             }
-            else if (scrollY >= aboutHeight && scrollY < aboutHeight + projectHeight+ experienceHeight) {
+            else if (scrollY >= aboutHeight && scrollY < aboutHeight + projectHeight) {
                 setStatus("Project");
                 setRightBg1("#E2E8F0");
                 setRightBg("bg-white");
