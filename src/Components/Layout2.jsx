@@ -1,4 +1,5 @@
 import React from 'react'
+import { motion } from "framer-motion";
 
 import Head from './Head'
 import Projects from './Projects'
