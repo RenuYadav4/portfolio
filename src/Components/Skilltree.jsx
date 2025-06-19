@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from "framer-motion";
-import skilltree from '../assets/skillTree.svg'
+
 
 const Skilltree = () => {
     return (
@@ -10,7 +10,7 @@ const Skilltree = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ type: "tween", duration: 1, ease: "easeOut" }}
         >
-            <img src={skilltree} alt="skilltree" />
+            <img src="/skillTree.svg" alt="skilltree" />
         </motion.div>
     )
 }

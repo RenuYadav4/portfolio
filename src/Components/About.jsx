@@ -1,12 +1,11 @@
 import React from 'react'
-import mylogo from '../assets/MyLogo.svg'
 
 const About = () => {
     return (
         <div className='mt-40 h-[60vh] lg:mt-50 ml-[-10px]  lg:ml-[5px]'>
             <div className='flex'>
                 <div className='ml-3 h-12.5 w-12.5 rounded-full shadow-[0_4px_6px_rgba(0,0,0,0.2)]'>
-                    <img src={mylogo} alt="" />
+                    <img src="/MyLogo.svg" alt="" />
                 </div>
                 <h2 className='m-3 text-xl font-serif'>Frontend Developer</h2>
             </div>
