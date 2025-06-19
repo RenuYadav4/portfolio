@@ -10,7 +10,7 @@ const Skilltree = () => {
             whileInView={{ y: 0, opacity: 1 }}
             transition={{ type: "tween", duration: 1, ease: "easeOut" }}
         >
-            <img src={skilltree} alt="" />
+            <img src={skilltree} alt="skilltree" />
         </motion.div>
     )
 }
